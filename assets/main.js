@@ -1,7 +1,7 @@
 (function(){
   // Simple typing + cursor handled with CSS; small stagger for flair
   const heading = document.querySelector('.typing');
-  const phrases = ['Systems Engineer','DevOps Learner','Self-hosted enthusiast','Bitcoin node operator'];
+  const phrases = ['devredakun', 'SysAdmin','DevOps','devredakun', 'Blockchain'];
   let idx = 0, pos = 0, forward = true;
   function type(){
     const text = phrases[idx];
