@@ -3,69 +3,212 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>devredakun</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <title>devredakun — Systems Engineer & DevOps learner</title>
+  <meta name="description" content="devredakun — Linux SysAdmin, DevOps, Git. Hands-on projects, VPS automation, and running a Bitcoin node.">
+  <meta name="author" content="devredakun">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Performance: preconnect to font hosts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap (consider adding SRI/crossorigin if you pin a CDN version) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
   <style>
-    body { font-family: 'Roboto Mono', monospace; background: #0d1117; color: #8b949e; overflow-x: hidden; }
-    .hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
-    .typing { font-family: 'Orbitron', sans-serif; font-size: 4rem; color: #ff6bff; }
-    .neon { text-shadow: 0 0 10px #ff6bff, 0 0 40px #ff6bff; }
-    section { padding: 100px 0; }
-    .skill-bar { height: 8px; background: #30363d; border-radius: 4px; overflow: hidden; }
-    .skill-fill { height: 100%; background: linear-gradient(90deg, #ff6bff, #6bfff2); width: 0; transition: width 2s ease; }
-    footer { background: #161b22; }
+    :root{
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --muted: #8b949e;
+      --accent-1: #ff6bff;
+      --accent-2: #6bfff2;
+      --primary: #0ea5a4;
+    }
+
+    /* Base */
+    html,body{height:100%}
+    body {
+      font-family: 'Roboto Mono', monospace;
+      background: var(--bg);
+      color: var(--muted);
+      margin:0;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* Skip-link */
+    .skip-link{
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background:#000;
+      color: #fff;
+      padding:8px;
+      z-index:1000;
+      transition: top .2s;
+    }
+    .skip-link:focus{ top: 8px; }
+
+    header{padding:1rem 0; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    nav .brand{ font-family: 'Orbitron', sans-serif; color: var(--accent-1); font-weight:700; letter-spacing:0.05em;}
+
+    .hero { min-height: 80vh; display: flex; align-items: center; justify-content: center; position: relative; text-align:center; padding:3rem 1rem;}
+    .typing { font-family:'Orbitron',sans-serif; font-size: clamp(2rem, 6vw, 4rem); color: var(--accent-1); margin:0; }
+    .neon { text-shadow: 0 0 8px var(--accent-1), 0 0 28px var(--accent-1); }
+
+    /* Cursor — respects reduced motion */
+    .cursor{ display:inline-block; width:.6ch; background:var(--accent-1); margin-left:.25rem; vertical-align:middle; animation: blink 1s steps(1) infinite;}
+    @keyframes blink{ 50%{ opacity:0 } }
+    @media (prefers-reduced-motion: reduce){ .cursor{ animation:none; opacity:1 } }
+
+    section { padding: 4rem 0; }
+    .skill-bar { height: 12px; background: #30363d; border-radius: 999px; overflow: hidden; }
+    .skill-fill { height: 100%; background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); width: 0%; transition: width 1200ms cubic-bezier(.2,.9,.2,1); }
+
+    /* Cards */
+    .project-card{ background: var(--card-bg); border: 1px solid rgba(255,255,255,0.03); color: var(--muted); }
+
+    footer { background: var(--card-bg); color: var(--muted); padding: 2rem 0; }
+
+    /* Small helpers */
+    .lead { color: #c9d1d9; }
   </style>
 </head>
 <body>
 
-  <div class="hero text-center">
-    <div>
-      <h1 class="typing neon">devredakun<span class="blink">|</span></h1>
-      <p class="lead">Linux SysAdmin • DevOps • Git</p>
-      <a href="#about" class="btn btn-outline-primary mt-4">Scroll down ↓</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="brand">devredakun</div>
+      <nav aria-label="Primary">
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link text-muted" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link text-muted" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link text-muted" href="#projects">Projects</a></li>
+        </ul>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <section id="about" class="container">
-    <h2 class="text-center mb-5 text-primary">About Me</h2>
-    <p class="lead text-center"> I'm a systems engineer and developer learning Linux system administration, Git/GitHub, and cloud development. I run my own VPS and automate deployments from GitHub. I’m exploring DevOps practices and how they apply to cloud environments, and I want to get better at real-world workflows — feature branches, code reviews, and small incremental deployments.
+  <main id="main">
+    <section class="hero container">
+      <div>
+        <h1 class="typing neon" aria-label="devredakun">devredakun<span class="cursor" aria-hidden="true"></span></h1>
+        <p class="lead mt-3">Linux SysAdmin • DevOps • Git — hands-on, self-hosted, and focused on automation.</p>
+        <p class="mt-4"><a href="#about" class="btn btn-outline-primary">Scroll down ↓</a></p>
+      </div>
+    </section>
 
-I’m also into crypto and blockchain and run my own Bitcoin node on a Raspberry Pi. Overall I’m focused on hands‑on learning: building servers, using version control, and moving toward automated, reproducible deployments.</p>
-  </section>
+    <section id="about" class="container">
+      <h2 class="text-center mb-4 text-primary">About Me</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <p class="lead text-center">I'm a systems engineer and developer learning Linux system administration, Git/GitHub, and cloud development. I run my own VPS and automate deployments from GitHub Actions. I'm also into crypto and blockchain and run a Bitcoin node on a Raspberry Pi. I focus on hands‑on learning: building servers, using version control, and moving toward automated, testable infrastructure.</p>
+        </div>
+      </div>
+    </section>
 
-  <section class="container">
-    <h2 class="text-center mb-5 text-info">Skills</h2>
-    <div class="row g-4">
-      <div class="col-md-6"><strong>Git & GitHub</strong><div class="skill-bar mt-2"><div class="skill-fill" style="width:15%"></div></div></div>
-      <div class="col-md-6"><strong>Linux</strong><div class="skill-bar mt-2"><div class="skill-fill" style="width:30%"></div></div></div>
-      <div class="col-md-6"><strong>WebDev</strong><div class="skill-bar mt-2"><div class="skill-fill" style="width:45%"></div></div></div>
-      <div class="col-md-6"><strong>DevOps</strong><div class="skill-bar mt-2"><div class="skill-fill" style="width:5%"></div></div></div>
+    <section id="skills" class="container">
+      <h2 class="text-center mb-4 text-info">Skills</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <strong>Git &amp; GitHub</strong>
+          <div class="skill-bar mt-2" role="progressbar" aria-label="Git and GitHub skill" aria-valuemin="0" aria-valuemax="100" aria-valuenow="15">
+            <div class="skill-fill" data-target="15"></div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <strong>Linux</strong>
+          <div class="skill-bar mt-2" role="progressbar" aria-label="Linux skill" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30">
+            <div class="skill-fill" data-target="30"></div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <strong>Web Development</strong>
+          <div class="skill-bar mt-2" role="progressbar" aria-label="Web development skill" aria-valuemin="0" aria-valuemax="100" aria-valuenow="45">
+            <div class="skill-fill" data-target="45"></div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <strong>DevOps</strong>
+          <div class="skill-bar mt-2" role="progressbar" aria-label="DevOps skill" aria-valuemin="0" aria-valuemax="100" aria-valuenow="5">
+            <div class="skill-fill" data-target="5"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="container text-center">
+      <h2 class="text-success mb-4">Projects</h2>
+      <p><a href="https://github.com/devredakun" class="btn btn-outline-success">See all on GitHub →</a></p>
+      <div class="row g-3 mt-4 justify-content-center">
+        <div class="col-md-4">
+          <div class="p-3 project-card rounded">
+            <h5>Personal VPS automation</h5>
+            <p class="small">CI/CD for deployments, Ansible playbooks, and monitoring.</p>
+            <a href="https://github.com/devredakun" class="stretched-link visually-hidden-focusable">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center">
+    <div class="container">
+      <p>Made with <i class="bi bi-heart-fill text-danger" aria-hidden="true"></i> from Helsinki • 2025</p>
+      <p><small>© 2025 ZSRe. All rights reserved.</small></p>
     </div>
-  </section>
-
-  <section class="container text-center">
-    <h2 class="text-success mb-5">Projects</h2>
-    <p><a href="https://github.com/devredakun" class="btn btn-outline-success">See all on GitHub →</a></p>
-  </section>
-
-  <footer class="text-center py-5">
-    <p>Made with <i class="bi bi-heart-fill text-danger"></i> from Helsinki • 2025</p>
-    <p><small>© 2025 ZSRe. All rights reserved.</small></p>
   </footer>
 
   <script>
-    // Typing cursor blink
-    setInterval(() => document.querySelector('.blink').style.visibility = 
-      document.querySelector('.blink').style.visibility === 'hidden' ? '' : 'hidden', 530);
-    
-    // Trigger skill bar animation on scroll
-    window.addEventListener('scroll', () => {
-      document.querySelectorAll('.skill-fill').forEach(bar => {
-        if (bar.getBoundingClientRect().top < window.innerHeight) bar.style.width = bar.style.width;
-      });
-    });
+    // Defer-like behavior: run after DOM ready
+    (function(){
+      // Animate skill bars when visible using IntersectionObserver (better perf than scroll listeners)
+      const fills = Array.from(document.querySelectorAll('.skill-fill'));
+      if ('IntersectionObserver' in window && window.matchMedia('(prefers-reduced-motion: reduce)').matches === false) {
+        const io = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const target = Number(el.dataset.target) || 0;
+              el.style.width = target + '%';
+              // Update ARIA on parent progressbar
+              const parent = el.closest('[role="progressbar"]');
+              if (parent) parent.setAttribute('aria-valuenow', String(target));
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.2 });
+
+        fills.forEach(f => {
+          // ensure initial width is 0 (in case of inline styles)
+          f.style.width = '0%';
+          io.observe(f);
+        });
+      } else {
+        // Fallback: set widths immediately (or respect reduced motion)
+        fills.forEach(f => {
+          const target = Number(f.dataset.target) || 0;
+          f.style.width = target + '%';
+          const parent = f.closest('[role="progressbar"]');
+          if (parent) parent.setAttribute('aria-valuenow', String(target));
+        });
+      }
+
+      // Improve keyboard access for "Skip to content" if needed (no JS necessary, but keep good practice)
+      // Cursor blinking handled with CSS animation for accessibility/perf (no JS)
+    })();
   </script>
 </body>
 </html>
