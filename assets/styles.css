@@ -1,0 +1,30 @@
+:root{
+  --bg:#0d1117;
+  --card:#161b22;
+  --muted:#8b949e;
+  --accent1:#ff6bff;
+  --accent2:#6bfff2;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Roboto Mono',monospace;background:var(--bg);color:var(--muted);margin:0;-webkit-font-smoothing:antialiased}
+.skip-link{position:absolute;top:-40px;left:0;background:#000;color:#fff;padding:8px;z-index:1000;transition:top .2s}.skip-link:focus{top:8px}
+.site-header{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}.brand{font-family:'Orbitron',sans-serif;color:var(--accent1);font-weight:700}
+.hero{position:relative;overflow:hidden;min-height:70vh;display:flex;align-items:center;justify-content:center}
+#bg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-inner{position:relative;z-index:2;padding:6rem 1rem}
+.typing{font-family:'Orbitron',sans-serif;font-size:clamp(2rem,6vw,4rem);color:var(--accent1);margin:0;text-align:center}
+.neon{text-shadow:0 0 8px var(--accent1),0 0 28px var(--accent1)}
+.cursor{display:inline-block;width:.6ch;background:var(--accent1);margin-left:.25rem;vertical-align:middle;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}@media(prefers-reduced-motion:reduce){.cursor{animation:none;opacity:1}}
+.lead{color:#c9d1d9;text-align:center}
+section{padding:4rem 0}
+.skill-bar{height:12px;background:#30363d;border-radius:999px;overflow:hidden}
+.skill-fill{height:100%;background:linear-gradient(90deg,var(--accent1),var(--accent2));width:0;transition:width 1200ms cubic-bezier(.2,.9,.2,1)}
+.project-card{background:var(--card);border:1px solid rgba(255,255,255,0.03);color:var(--muted);padding:1rem;border-radius:.5rem;transition:transform .25s,box-shadow .25s}
+.project-card:hover{transform:translateY(-6px);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.project-title{font-weight:700;color:#e6eef6}
+.project-desc{font-size:.9rem;color:#bfc9d4}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.btn-outline-success{border-color:rgba(110,210,160,.18)}
+@media(max-width:576px){.hero-inner{padding:4rem 1rem}}
