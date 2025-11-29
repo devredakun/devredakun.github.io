@@ -4,8 +4,11 @@
   const phrases = ['Systems Engineer','DevOps Learner','Self-hosted enthusiast','Bitcoin node operator'];
   let idx = 0, pos = 0, forward = true;
   function type(){
+    if(!heading) return;
     const text = phrases[idx];
-    heading.firstChild && (heading.firstChild.textContent = text.slice(0,pos));
+    // Ensure heading has a text node to update
+    if(!heading.firstChild) heading.appendChild(document.createTextNode(''));
+    heading.firstChild.textContent = text.slice(0,pos);
     if(forward){ pos++; if(pos>text.length){ forward=false; setTimeout(type,900); return }} else { pos--; if(pos===0){ forward=true; idx=(idx+1)%phrases.length }}
     setTimeout(type, 80);
   }
@@ -27,22 +30,26 @@
     fills.forEach(f=>{f.style.width='0%'; io.observe(f)});
   } else { fills.forEach(f=>{f.style.width = (f.dataset.target||0) + '%'}); }
 
-  // Theme toggle (simple)
+  // Theme toggle (simple) — prevent default navigation and ensure handler attached
   const themeBtn = document.getElementById('themeToggle');
-  themeBtn && themeBtn.addEventListener('click', ()=>{
-    const html = document.documentElement;
-    const cur = html.getAttribute('data-bs-theme')||'dark';
-    const next = cur === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-bs-theme', next);
-    themeBtn.setAttribute('aria-pressed', String(next==='light'));
-  });
+  if(themeBtn){
+    themeBtn.addEventListener('click', (ev)=>{
+      ev.preventDefault(); ev.stopPropagation();
+      const html = document.documentElement;
+      const cur = html.getAttribute('data-bs-theme')||'dark';
+      const next = cur === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-bs-theme', next);
+      themeBtn.setAttribute('aria-pressed', String(next==='light'));
+    });
+  }
 
   // Fetch public GitHub repos for projects
   const grid = document.getElementById('projectsGrid');
   if(grid){
-    fetch('https://api.github.com/users/devredakun/repos?per_page=6&sort=updated')
-      .then(r=>r.json())
-      .then(list=>{
+    (async ()=>{
+      try{
+        const r = await fetch('https://api.github.com/users/devredakun/repos?per_page=6&sort=updated');
+        const list = await r.json();
         if(!Array.isArray(list)) return;
         list.forEach(repo=>{
           const col = document.createElement('div'); col.className='col-md-4';
@@ -50,11 +57,20 @@
           const title = document.createElement('div'); title.className='project-title'; title.textContent = repo.name;
           const desc = document.createElement('div'); desc.className='project-desc'; desc.textContent = repo.description || 'No description';
           const meta = document.createElement('div'); meta.className='small text-muted mt-2'; meta.textContent = `${repo.language||'—'} • ★ ${repo.stargazers_count}`;
-          const link = document.createElement('a'); link.href = repo.html_url; link.target='_blank'; link.rel='noopener noreferrer'; link.className='stretched-link'; link.setAttribute('aria-label','Open '+repo.name+' on GitHub');
+          const link = document.createElement('a');
+          link.href = repo.html_url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.className = 'stretched-link';
+          link.setAttribute('aria-label', 'Open ' + repo.name + ' on GitHub');
           card.appendChild(title); card.appendChild(desc); card.appendChild(meta); card.appendChild(link);
           col.appendChild(card); grid.appendChild(col);
         })
-      }).catch(()=>{ /* ignore */ });
+      }catch(e){
+        // Fail silently but don't break the rest of the script
+        console.error('Failed to load repos', e);
+      }
+    })();
   }
 
   // Canvas background: lightweight moving dots
